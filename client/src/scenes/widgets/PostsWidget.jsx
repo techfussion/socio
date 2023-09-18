@@ -34,7 +34,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const getUserPosts = async () => {
     await axios({
       method: "GET",
-      url: `http://localhost:3001/posts/${userId}/posts`,
+      url: `https://socio-api-fwcv.onrender.com/posts/${userId}/posts`,
       headers: {
         Authorization: `${token}`, //Bearer
       },
