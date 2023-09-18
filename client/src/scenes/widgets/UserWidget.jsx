@@ -23,21 +23,19 @@ const UserWidget = ({ userId, picturePath }) => {
   const main = palette.neutral.main;
 
   const getUser = async () => {
-    await axios(
-      {
-        "method": "GET",
-        "url": `http://localhost:3001/users/${userId}`,
-        "headers": {
-          "Authorization": `Bearer ${token}`
-        },
-      }
-    )
-    .then(response => {
-      setUser(response.data);
+    await axios({
+      method: "GET",
+      url: `https://socio-api-fwcv.onrender.com/users/${userId}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
-    .catch(err => {
-      console.log({msg: "Error from UserWidget", err: err});
-    })
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((err) => {
+        console.log({ msg: "Error from UserWidget", err: err });
+      });
     // const response = await fetch(`http://localhost:3001/users/${userId}`, {
     //   method: "GET",
     //   headers: { Authorization: `Bearer ${token}` },
@@ -49,7 +47,6 @@ const UserWidget = ({ userId, picturePath }) => {
   useEffect(() => {
     getUser();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
 
   if (!user) {
     return null;

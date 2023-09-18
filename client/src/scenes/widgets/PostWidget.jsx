@@ -36,23 +36,21 @@ const PostWidget = ({
   const primary = palette.primary.main;
 
   const patchLike = async () => {
-    await axios(
-      {
-        "method": "PATCH",
-        "url": `http://localhost:3001/posts/${postId}/like`,
-        "headers": {
-          "Authorization": `Bearer ${token}`,
-          "Content-Type": "application/json"
-        },
-        "body": JSON.stringify({ userId: loggedInUserId })
-      }
-    )
-    .then(response => {
-      dispatch(setPost({ post: response.data }));
+    await axios({
+      method: "PATCH",
+      url: `https://socio-api-fwcv.onrender.com/posts/${postId}/like`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: loggedInUserId }),
     })
-    .catch(err => {
-      console.log(err);
-    })
+      .then((response) => {
+        dispatch(setPost({ post: response.data }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     // const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
     //   method: "PATCH",
     //   headers: {

@@ -46,25 +46,23 @@ const MyPostWidget = ({ picturePath }) => {
       formData.append("picture", image);
       formData.append("picturePath", image.name);
     }
-    await axios(
-      {
-        "method": "POST",
-        "url": `http://localhost:3001/posts`,
-        "headers": {
-          "Authorization": `Bearer ${token}`
-        },
-        "body": formData,
-      }
-    )
-    .then(response => {
-      const data = response.data;
-      dispatch(setPosts({ data }));
-      setImage(null);
-      setPost("");
+    await axios({
+      method: "POST",
+      url: `https://socio-api-fwcv.onrender.com/posts`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
     })
-    .catch(err => {
-      console.log(err);
-    })
+      .then((response) => {
+        const data = response.data;
+        dispatch(setPosts({ data }));
+        setImage(null);
+        setPost("");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     // const response = await fetch(`http://localhost:3001/posts`, {
     //   method: "POST",

@@ -10,21 +10,19 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const token = useSelector((state) => state.token);
 
   const getPosts = async () => {
-    await axios(
-      {
-        "method": "GET",
-        "url": `http://localhost:3001/posts`,
-        "headers": {
-          "Authorization": `${token}`//Bearer 
-        }
-      }
-    )
-    .then(response => {
-      dispatch(setPosts({ posts: response.data }));
+    await axios({
+      method: "GET",
+      url: `https://socio-api-fwcv.onrender.com/posts`,
+      headers: {
+        Authorization: `${token}`, //Bearer
+      },
     })
-    .catch(err => {
-      console.log({msg: "error from postswidget", err: err});
-    })
+      .then((response) => {
+        dispatch(setPosts({ posts: response.data }));
+      })
+      .catch((err) => {
+        console.log({ msg: "error from postswidget", err: err });
+      });
     // const response = await fetch("http://localhost:3001/posts", {
     //   method: "GET",
     //   headers: { Authorization: `Bearer ${token}` },
@@ -34,21 +32,19 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   };
 
   const getUserPosts = async () => {
-    await axios(
-      {
-        "method": "GET",
-        "url": `http://localhost:3001/posts/${userId}/posts`,
-        "headers": {
-          "Authorization": `${token}`//Bearer 
-        }
-      }
-    )
-    .then(response => {
-      dispatch(setPosts({ posts: response.data }));
+    await axios({
+      method: "GET",
+      url: `http://localhost:3001/posts/${userId}/posts`,
+      headers: {
+        Authorization: `${token}`, //Bearer
+      },
     })
-    .catch(err => {
-      console.log(err);
-    })
+      .then((response) => {
+        dispatch(setPosts({ posts: response.data }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     // const response = await fetch(
     //   `http://localhost:3001/posts/${userId}/posts`,
     //   {
@@ -66,7 +62,6 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       getPosts();
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
 
   return (
     <>

@@ -13,21 +13,19 @@ const FriendListWidget = ({ userId }) => {
   const friends = useSelector((state) => state.user.friends);
 
   const getFriends = async () => {
-    await axios(
-      {
-        "method": "GET",
-        "url": `http://localhost:3001/users/${userId}/friends`,
-        "headers": {
-          "Authorization": `Bearer ${token}`
-        }
-      }
-    )
-    .then(response => {
-      dispatch(setFriends({ friends: response.data }));
+    await axios({
+      method: "GET",
+      url: `https://socio-api-fwcv.onrender.com/users/${userId}/friends`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
-    .catch(err => {
-      console.log(err);
-    })
+      .then((response) => {
+        dispatch(setFriends({ friends: response.data }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     // const response = await fetch(
     //   `http://localhost:3001/users/${userId}/friends`,
     //   {

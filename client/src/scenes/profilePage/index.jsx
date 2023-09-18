@@ -16,28 +16,26 @@ const ProfilePage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   const getUser = async () => {
-    await axios(
-      {
-        "method": "GET",
-        "url": `http://localhost:3001/users/${userId}`,
-        "headers": {
-          "Authorization": `Bearer ${token}`
-        },
-      }
-    )
-    .then(response => {
-      setUser(response.data);
+    await axios({
+      method: "GET",
+      url: `https://socio-api-fwcv.onrender.com/users/${userId}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
-    .catch(err => {
-      console.log({msg: "Error from profilePage", err: err});
-    })
+      .then((response) => {
+        setUser(response.data);
+      })
+      .catch((err) => {
+        console.log({ msg: "Error from profilePage", err: err });
+      });
   };
 
   useEffect(() => {
     getUser();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  console.log(typeof(userId))
-  console.log(user)
+  console.log(typeof userId);
+  console.log(user);
   if (!user) return null;
 
   return (
